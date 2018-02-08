@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Transactions";
+}
+
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.theme.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/jqgrid/ui.jqgrid.css" />
+
+@section scripts { 
+    <script src="~/lib/jqgrid/grid.locale-en.js" type="text/javascript"></script>
+    <script src="~/lib/jqgrid/jquery.jqGrid.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    var ShowTableFlag = false;
+
+    function search_action() {
+        if (!ShowTableFlag)
+            show_table();
+        else
+            search_trans();
+
+       // $("#spnSearchResults").fadeIn(1000);
+    }
+
+    show_table = function () {
+        ShowTableFlag = true;
+        transGrid = $("#trans_grid").jqGrid({
+            loadui: 'disable',
+            datatype: 'json',
+            height: 400,
+            /**/
+            url: "@Url.Action("GetTransactions")",
+    /**/
+    mtype: 'POST',
+    shrinkToFit: false,
+    autowidth: true,
+    rowNum: 15,
+    emptyrecords: "Nothing to display",
+    pager: '#trans_grid_pager',
+    viewrecords: true,
+    loadonce: true,
+    recordtext: "View {0} - {1} of {2}",
+    cellLayout: 12,
+    colNames: [
+        'Account Id',
+        'Trans Type',
+        'Trans Date Time',
+        'Trans Amount',
+        'Class Id',
+        'Trans Id'
+    ],
+
+    colModel: [
+        { name: 'accountId', index: 'accountId', width: 105, sorttype: 'number', align: 'right' },
+        {
+            name: 'transactionTypeDesc', index: 'transactionTypeDesc',
+            width: 100
+        },
+        {
+            name: 'transDateTimeStr', index: 'transDateTimeStr', width: 161, formatter: 'date',
+            formatoptions: { srcformat: 'm/d/Y H:i:s A', newformat: 'm/d/Y h:i:s A' }
+        },
+
+        { name: 'transAmount', index: 'transAmount', width: 82, sorttype: 'number', formatter: 'number', align: 'right', formatoptions: { defaultValue: ' ' } },
+        { name: 'classId', index: 'classId', width: 105, sorttype: 'number', align: 'right' },
+        { name: 'id', index: 'id', width: 105, sorttype: 'number', align: 'right' }
+
+    ],
+    jsonReader: {
+        root: 'rows',
+        repeatitems: false
+    },
+    loadComplete: function (data) {
+    }
+});
+}
+
+function search_trans() {
+var trans_grid = $('#trans_grid');
+trans_grid.setGridParam({
+    /**/
+    url: "@Url.Action("GetTransactions")"
+    /**/
+});
+trans_grid.setGridParam({ datatype: 'json' });
+trans_grid.trigger("reloadGrid");
+}
+
+$(document).ready(function () {
+});
+
+    </script>
+}
+
+
+<span style="font-size:4px"><br /></span>
+<span style="font-size:18px;font-family:Verdana">
+    @ViewData["Title"]
+</span>
+<span style"font-size:4px"><br /><br /></span>
+
+<button onclick="search_action();">Show Transactions</button>
+<span style="font-size:14px; font-family:Verdana;display:none;" id="spnSearchResults">
+    &nbsp; &nbsp; &nbsp; Search Results
+</span>
+<span style="font-size:4px"><br /><br /></span>
+
+<div>
+    <div style="width: 100%;" id="trans_grid_container">
+        <table id="trans_grid" class="grid"></table>
+    </div>
+    <div id="trans_grid_pager">
+    </div>
+</div>
+

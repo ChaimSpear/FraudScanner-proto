@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section scripts { 
+
+    <script type="text/javascript">
+        $(function () {  
+
+            $("#imgDollar").delay(1000).fadeOut(6500);
+
+      /*  $("#imgDollar").delay(1500).animate(
+            {
+                "width": "750px",
+                "height": "300px",
+                "top": "70px",
+                "left": "26px",
+
+            }, 2000, "linear", function () {
+                    $("#imgDollar").delay(2000).fadeOut(4000);
+                }
+            );*/
+        });
+    </script>
+}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+    <br /><br />
+    <h2>Welcome to Fraud Scanner </h2>.
+    <br />
+    <h3>Please go to the menu items above .</h3>
+</div>
+
+
+<img id="imgDollar" src="~/images/OneHundredBill-Large.jpg" style="position:absolute; left:40px; top:70px; height:220px; width:551px" />
+

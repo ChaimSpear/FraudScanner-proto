@@ -1,0 +1,133 @@
+﻿
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.theme.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/jqgrid/ui.jqgrid.css" />
+
+@section scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+                <script src= "~/lib/jqgrid/grid.locale-en.js" type= "text/javascript" ></script>
+    <script src="~/lib/jqgrid/jquery.jqGrid.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        //<script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript">< / script>
+        //<script src="~/lib/jqgrid/jquery/jquery-1.11.0.min.js" type="text/javascript">< /  script>
+
+    var ShowTableFlag = false;
+    /* resize_grid = function ()
+    {
+    //if (AccordionSearchGrid.check_accordion_grid_active)
+    // {
+    $("#trans_grid").jqGrid('setGridWidth', ($("#trans_grid_container").width()));
+    //}
+    }
+
+    $(window).bind('resize', function() {
+    resize_grid();
+    }).trigger('resize');*/
+
+    function search_action() {
+    if (!ShowTableFlag)
+    show_table();
+    else
+    search_trans();
+    //        AccordionSearchGrid.set_search_grid_accordion_active();
+    }
+
+    show_table = function () {
+    ShowTableFlag = true;
+    transGrid = $("#trans_grid").jqGrid({
+    loadui: 'disable',
+    datatype: 'json',
+    height: 450,
+    url: "@Url.Action("TestJson")",
+    mtype: 'POST',
+    shrinkToFit: false,
+    autowidth: true,
+    rowNum: 18,
+    emptyrecords: "Nothing to display",
+    pager: '#trans_grid_pager',
+    viewrecords: true,
+    loadonce: true,
+    recordtext: "View {0} - {1} of {2}",
+    cellLayout:12,
+    colNames: [
+    'Trans Type',
+        'Trans Date Time',
+        'Trans Date Time', 
+    'Trans Amount',
+    'Trans Id'
+    ],
+
+    colModel: [
+        {
+            name: 'transType', index: 'transType',
+            width: 100
+        },
+        { name: 'transDate', index: 'transDate', width: 161, formatter: 'date', formatoptions: { newformat: 'm/d/Y h:i:s A' }, hidden:true },
+          {
+            name: 'transDateStr', index: 'transDateStr', width: 161, formatter: 'date',
+            formatoptions: {srcformat: 'm/d/Y H:i:s A', newformat: 'm/d/Y h:i:s A' }},
+
+        { name: 'transAmount', index: 'transAmount', width: 82, sorttype: 'number', formatter: 'number', align: 'right', formatoptions: { defaultValue: ' ' } },
+        { name: 'transId', index: 'transId', width: 105, formatter: 'number', align: 'right' },
+
+    ],
+    jsonReader: {
+    root: 'rows',
+    repeatitems: false
+    } ,
+    loadComplete  :  function(data)
+    {
+    //  var MaxRows = @ViewBag.MaxRows;
+    //  var DisplayMessage = " ";
+
+    //  if (jQuery("#trans_grid").getGridParam("records") ==  MaxRows)
+    //    DisplayMessage = "Returning the maximum results of " + MaxRows + " records.";
+
+    // jQuery("#MESSAGE_TOP").html(DisplayMessage);
+
+    // CustomBlock.unblock();
+    //$.unblockUI();
+    }
+    });
+    }
+
+    function search_trans() {
+    // CustomBlock.block_radius("LOADING...");
+    var trans_grid = $('#trans_grid');
+    trans_grid.setGridParam({
+    url: "@Url.Action("TestJson")"
+    });
+    trans_grid.setGridParam({ datatype: 'json' });
+    trans_grid.trigger("reloadGrid");
+    }
+
+    $(document).ready(function () {
+    //showTable();
+
+    //  AccordionSearchGrid.set_search_grid_accordion_activate_func(resize_grid);
+    });
+
+    </script>
+}
+
+<h2>Index</h2>
+
+<button onclick="search_action();">Show Results</button>
+
+<h3>
+    Search Results
+</h3>
+<div>
+    <div style="width: 100%;" id="trans_grid_container">
+        <table id="trans_grid" class="grid"></table>
+    </div>
+    <div id="trans_grid_pager">
+    </div>
+</div>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
