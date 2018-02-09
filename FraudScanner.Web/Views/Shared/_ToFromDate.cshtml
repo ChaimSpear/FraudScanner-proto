@@ -1,0 +1,45 @@
+﻿
+@section scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        alert("test 12")
+        set_dates();
+    }
+    );
+    set_dates = function () {
+
+         $("#FROM_DATE").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+        $("#FROM_DATE").attr('maxlength', '10');
+        $("#FROM_DATE").val("@ViewData["fromdate"].ToString()");
+
+        $("#TO_DATE").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+        $("#TO_DATE").attr('maxlength', '10');
+        $("#TO_DATE").val("@ViewData["todate"].ToString()");
+    });
+
+    ToFromDate = {
+        get_from_date_val : function()
+        {
+            return $("#FROM_DATE").val();
+        },
+        get_to_date_val : function()
+        {
+            return $("#TO_DATE").val();
+        }
+    }
+</script> 
+ }
+@Html.TextBox("FROM_DATE", "", new { style = "width: 90px;" })
+@Html.Label(" and ")
+@Html.TextBox("TO_DATE", "", new { style = "width: 90px;" })
+                    

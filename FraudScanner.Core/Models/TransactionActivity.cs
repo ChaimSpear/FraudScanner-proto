@@ -15,17 +15,5 @@ namespace FraudScanner.Core.Models
         public int TransactionTypeId { get; set; }
          
     }
-
-    public class TransactionActivitySearch
-    {
-        public long TransId { get; set; }
-        public int ClassId { get; set; }
-        public DateTime FromTransDate { get; set; }
-        public DateTime ToTransDate { get; set; }
-        public double FromTransAmount { get; set; }
-        public double ToTransAmount { get; set; }
-        public int AccountId { get; set; }
-        public int TransTypeId { get; set; }
-    }
      
 }

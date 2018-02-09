@@ -16,6 +16,9 @@ namespace FraudScanner.Web.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.CurrentDateStr = DateTime.Now.ToString("MM/dd/yyyy");
+            ViewBag.TransactionTypes = _transactionMainService.GetTransactionTypes();
+
             return View();
         }
 
