@@ -24,8 +24,8 @@ namespace FraudScanner.Core.Models
 
         public string TransactionTypeDesc { get; set; }
 
-        public Nullable<System.DateTime> ActiveDate { get; set; }
-        public Nullable<System.DateTime> InactiveDate { get; set; }
+        public Nullable<DateTime> ActiveDate { get; set; }
+        public Nullable<DateTime> InactiveDate { get; set; }
 
        /* public string ActiveDateStr
         {

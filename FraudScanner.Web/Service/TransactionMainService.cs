@@ -16,9 +16,21 @@ namespace FraudScanner.Web.Service
             _transactionMain = transactionMain;
         }
 
-        public List<TransactionActivityDisplayView> GetTransactions()
+        public List<TransactionActivityDisplayView> GetTransactions(Nullable<int> transactionTypeId,
+            Nullable<int> accountId,
+            DateTime fromDate,
+            DateTime toDate)
         {
-            return _transactionMain.GetTransactionActivity( ).Result;
+
+            var viewSearch = new TransactionActivityDisplayViewSearch
+            {
+                TransactionTypeId = transactionTypeId,
+                AccountId = accountId,
+                FromTransDate = fromDate,
+                ToTransDate = toDate
+            };
+
+            return _transactionMain.GetTransactionActivity(viewSearch).Result;
         }
 
         public List<TransactionType> GetTransactionTypes()

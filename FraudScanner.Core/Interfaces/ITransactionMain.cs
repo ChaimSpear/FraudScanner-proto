@@ -8,7 +8,7 @@ namespace FraudScanner.Core.Interfaces
 { 
     public interface ITransactionMain
     {
-        Task<List<TransactionActivityDisplayView>> GetTransactionActivity();
+        Task<List<TransactionActivityDisplayView>> GetTransactionActivity(TransactionActivityDisplayViewSearch searchCrit);
 
         Task<List<TransactionType>> GetTransactionTypes();
     }

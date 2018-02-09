@@ -8,9 +8,9 @@ namespace FraudScanner.Mocks
 {
     public class TransactionMainMocks : ITransactionMain
     { 
-        public Task<List<TransactionActivityDisplayView>> GetTransactionActivity()
+        public Task<List<TransactionActivityDisplayView>> GetTransactionActivity(TransactionActivityDisplayViewSearch searchCrit)
         { 
-            return Task.FromResult(GenerateDisplayView());
+            return Task.FromResult(GenerateDisplayView(searchCrit));
         }
 
         public Task<List<TransactionType>> GetTransactionTypes()
@@ -24,19 +24,28 @@ namespace FraudScanner.Mocks
             return Task.FromResult(transactionTypeMockList);
         }
 
-        private List<TransactionActivityDisplayView> GenerateDisplayView()
+        private List<TransactionActivityDisplayView> GenerateDisplayView(TransactionActivityDisplayViewSearch searchCrit)
         {
             var transactionActivityDisplayViewList = new List<TransactionActivityDisplayView>();
             var transactionTypeMockList = GetTransactionTypes().Result;
 
             var transactionActivityMockList = GetTransactionActivityMockList();
 
-            for (int i = 0; i < transactionActivityMockList.Count; i++) {
+            for (int i = 0; i < transactionActivityMockList.Count; i++)
+            {
                 var transactionActivity = transactionActivityMockList[i];
 
-                var transactionActivityDisplayView = GetDisplayViewFromRec(transactionActivity, transactionTypeMockList);
+                if ( (transactionActivity.TransDateTime.Date >= searchCrit.FromTransDate) && 
+                    (transactionActivity.TransDateTime.Date <= searchCrit.ToTransDate) &&
+                    (!searchCrit.TransactionTypeId.HasValue ||
+                    searchCrit.TransactionTypeId.Value == transactionActivity.TransactionTypeId) &&
+                    (!searchCrit.AccountId.HasValue ||
+                    searchCrit.AccountId.Value == transactionActivity.AccountId)) 
+                {
+                    var transactionActivityDisplayView = GetDisplayViewFromRec(transactionActivity, transactionTypeMockList);
 
-                transactionActivityDisplayViewList.Add(transactionActivityDisplayView);
+                    transactionActivityDisplayViewList.Add(transactionActivityDisplayView);
+                }
             }
 
             return transactionActivityDisplayViewList;
@@ -108,7 +117,17 @@ namespace FraudScanner.Mocks
                    TransAmount = 50,
                    TransDateTime = new DateTime(2018, 1, 12, 17, 33, 11)
                });
-
+             
+            transactionActivityMockList.Add(
+                new TransactionActivity
+                {
+                    Id = 1400,
+                    AccountId = 930,
+                    ClassId = 120,
+                    TransactionTypeId = 2,
+                    TransAmount = 550,
+                    TransDateTime = new DateTime(2018, 2, 02, 15, 55, 44)
+                });
             return  transactionActivityMockList ;
         }
 

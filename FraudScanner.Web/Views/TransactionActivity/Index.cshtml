@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="~/css/jqgrid/ui.jqgrid.css" />
 
 @section scripts {
+    <script src="~/lib/jquery-ui/jquery-ui.js" type="text/javascript"></script>
     <script src="~/lib/jqgrid/grid.locale-en.js" type="text/javascript"></script>
     <script src="~/lib/jqgrid/jquery.jqGrid.js" type="text/javascript"></script>
 
@@ -29,7 +30,13 @@
             datatype: 'json',
             height: 400,
             /**/
-            url: "@Url.Action("GetTransactions")",
+            url: "@Url.Action("GetTransactions")", 
+            postData: { 
+                transactionTypeId: $("#TransactionTypeId").val(),
+                accountId: $("#AccountId").val(),
+                fromDate: $("#FromDate").val(),
+                toDate: $("#ToDate").val()
+            },
     /**/
     mtype: 'POST',
     shrinkToFit: false,
@@ -76,17 +83,37 @@
 }
 
 function search_trans() {
-var trans_grid = $('#trans_grid');
-trans_grid.setGridParam({
-    /**/
-    url: "@Url.Action("GetTransactions")"
-    /**/
-});
-trans_grid.setGridParam({ datatype: 'json' });
-trans_grid.trigger("reloadGrid");
+    var trans_grid = $('#trans_grid');
+        trans_grid.setGridParam({
+            url: "@Url.Action("GetTransactions")",
+            postData: {
+                transactionTypeId: $("#TransactionTypeId").val(),
+                accountId: $("#AccountId").val(),
+                fromDate: $("#FromDate").val(),
+                toDate: $("#ToDate").val()
+            }
+        }
+        );
+    trans_grid.setGridParam({ datatype: 'json' });
+    trans_grid.trigger("reloadGrid");
 }
 
-$(document).ready(function () {
+        set_dates = function () {
+
+        $("#FromDate, #ToDate").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+            }).attr('maxlength', '10');; 
+            $("#FromDate").val("@ViewBag.DefaultFromDateStr");
+            $("#ToDate").val("@ViewBag.DefaultToDateStr"); 
+
+        }
+
+        $(document).ready(function () {
+            set_dates();
+            $("#TransactionTypeId").prepend("<option value=''>-- ALL --</option>").val('');
 });
 
     </script>
@@ -97,22 +124,21 @@ $(document).ready(function () {
     @ViewData["Title"]
 </span>
 
-<span style"font-size:4px"><br /><br /></span> 
+<span style"font-size:4px"><br /><br /></span>
 
 AccountId:
-<input type="number" id="AccountId" />
+<input type="number" id="AccountId" style="width:100px" />
 
 <span>&nbsp; &nbsp;  </span>
 Transaction Type:
 @Html.DropDownList("TransactionTypeId",
-                  new SelectList(ViewBag.TransactionTypes, "Id", "TransactionTypeDesc"), new { style = "width: 200px;" })
- 
- Trans Date Range:   
+                  new SelectList(ViewBag.TransactionTypes, "Id", "TransactionTypeDesc"), new { style = "width: 100px;" })
+<span>&nbsp; &nbsp;  </span>
+ Trans Date Range:
 
-@Html.Partial("_ToFromDate",
-             new ViewDataDictionary(this.ViewData){
-       { "fromdate", ViewBag.CurrentDateStr},
-       {"todate", ViewBag.CurrentDateStr } });
+@Html.TextBox("FromDate", "", new { style = "width: 90px;" })
+@Html.Label(" and ")
+@Html.TextBox("ToDate", "", new { style = "width: 90px;" })
 
 <span>&nbsp; &nbsp; &nbsp; </span>
 <span>&nbsp; &nbsp; &nbsp; </span>
@@ -123,9 +149,9 @@ Transaction Type:
 </span>
 <span style="font-size:4px"><br /><br /></span>
 
-<div>
-    <div style="width: 100%;" id="trans_grid_container">
-        <table id="trans_grid" class="grid"></table>
+<div style="z-index:-100">
+    <div style="width: 100%;z-index:-100;" id="trans_grid_container">
+        <table id="trans_grid" class="grid"  style="z-index:-100"></table>
     </div>
     <div id="trans_grid_pager">
     </div>

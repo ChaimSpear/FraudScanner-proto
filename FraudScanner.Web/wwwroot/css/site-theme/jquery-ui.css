@@ -400,21 +400,24 @@ button.ui-button::-moz-focus-inner {
 	pointer-events: none;
 }
 .ui-datepicker {
-	width: 17em;
-	padding: .2em .2em 0;
-	display: none;
+    width: 17em;
+    padding: .2em .2em 0;
+    display: none;
+    z-index: 999999 !important;
 }
-.ui-datepicker .ui-datepicker-header {
-	position: relative;
-	padding: .2em 0;
-}
-.ui-datepicker .ui-datepicker-prev,
-.ui-datepicker .ui-datepicker-next {
-	position: absolute;
-	top: 2px;
-	width: 1.8em;
-	height: 1.8em;
-}
+    .ui-datepicker .ui-datepicker-header {
+        position: relative;
+        padding: .2em 0;
+        z-index: 999999 !important;
+    }
+    .ui-datepicker .ui-datepicker-prev,
+    .ui-datepicker .ui-datepicker-next {
+        position: absolute;
+        top: 2px;
+        width: 1.8em;
+        height: 1.8em;
+        z-index: 100 !important;
+    }
 .ui-datepicker .ui-datepicker-prev-hover,
 .ui-datepicker .ui-datepicker-next-hover {
 	top: 1px;
@@ -453,12 +456,13 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker select.ui-datepicker-year {
 	width: 45%;
 }
-.ui-datepicker table {
-	width: 100%;
-	font-size: .9em;
-	border-collapse: collapse;
-	margin: 0 0 .4em;
-}
+    .ui-datepicker table {
+        width: 100%;
+        font-size: .9em;
+        border-collapse: collapse;
+        margin: 0 0 .4em;
+        z-index: 100 !important;
+    }
 .ui-datepicker th {
 	padding: .7em .3em;
 	text-align: center;
@@ -495,6 +499,10 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
 	float: left;
 }
+
+    .ui-datepicker input, select{
+        color: black; 
+    }
 
 /* with multiple calendars */
 .ui-datepicker.ui-datepicker-multi {

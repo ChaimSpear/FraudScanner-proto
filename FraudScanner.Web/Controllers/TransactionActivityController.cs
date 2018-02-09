@@ -16,15 +16,20 @@ namespace FraudScanner.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.CurrentDateStr = DateTime.Now.ToString("MM/dd/yyyy");
+            ViewBag.DefaultFromDateStr = DateTime.Now.AddMonths(-1).ToString("MM/dd/yyyy");
+            ViewBag.DefaultToDateStr = DateTime.Now.ToString("MM/dd/yyyy");
             ViewBag.TransactionTypes = _transactionMainService.GetTransactionTypes();
 
             return View();
         }
 
-        public ActionResult GetTransactions()
+        public ActionResult GetTransactions(Nullable<int> TransactionTypeId,
+            Nullable<int> AccountId,
+            DateTime FromDate,
+            DateTime ToDate)
         {
-            var transLst = _transactionMainService.GetTransactions();
+            var transLst = _transactionMainService.GetTransactions(TransactionTypeId,
+                AccountId, FromDate, ToDate);
             var result = new
             {
                 total = 1,
