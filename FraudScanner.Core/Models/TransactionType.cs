@@ -7,7 +7,6 @@ namespace FraudScanner.Core.Models
     public class TransactionType
     {
         public int Id { get; set; }
-        public string TransactionTypeDesc { get; set; }
-
+        public string TransactionTypeDesc { get; set; } 
     }
 }

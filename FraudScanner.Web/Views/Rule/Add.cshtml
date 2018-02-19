@@ -1,0 +1,74 @@
+﻿@model FraudScanner.Web.ViewModels.RuleViewModel
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>Add</h2>
+
+<h4>RuleViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RuleTypeId" class="control-label"></label>
+                <input asp-for="RuleTypeId" class="form-control" />
+                 
+
+                <span asp-validation-for="RuleTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RuleDesc" class="control-label"></label>
+                <input asp-for="RuleDesc" class="form-control" />
+                <span asp-validation-for="RuleDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeSpanMinutes" class="control-label"></label>
+                <input asp-for="TimeSpanMinutes" class="form-control" />
+                <span asp-validation-for="TimeSpanMinutes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeasurementAmount" class="control-label"></label>
+                <input asp-for="MeasurementAmount" class="form-control" />
+                <span asp-validation-for="MeasurementAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FraudScore" class="control-label"></label>
+                <input asp-for="FraudScore" class="form-control" />
+                <span asp-validation-for="FraudScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransactionTypeId" class="control-label"></label>
+
+                <select asp-for="TransactionTypeId" asp-items="Model.TransactionTypes" class="form-control"></select>
+                <input asp-for="TransactionTypeId" class="form-control" />
+                <span asp-validation-for="TransactionTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActiveDate" class="control-label"></label>
+                <input asp-for="ActiveDate" class="form-control" />
+                <span asp-validation-for="ActiveDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InactiveDate" class="control-label"></label>
+                <input asp-for="InactiveDate" class="form-control" />
+                <span asp-validation-for="InactiveDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

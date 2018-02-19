@@ -1,5 +1,6 @@
 ﻿using FraudScanner.Core.Interfaces;
 using FraudScanner.Core.Models;
+using FraudScanner.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,22 @@ namespace FraudScanner.Web.Service
         public List<TransactionType> GetTransactionTypes()
         {
             return _transactionMain.GetTransactionTypes().Result;
+        }
+
+        private List<TransactionTypeViewModel> ConvertTransTypesToTransTypeViewModels(List<TransactionType> TransactionTypes)
+        {
+            var TransTypeViewModels = new List<TransactionTypeViewModel>();
+            for (int i = 0; i < TransactionTypes.Count; i++)
+            {
+                TransTypeViewModels.Add(
+                    new TransactionTypeViewModel
+                    {
+                        Id = TransactionTypes[i].Id,
+                        TransactionTypeDesc = TransactionTypes[i].TransactionTypeDesc
+                    } );
+            }
+
+            return TransTypeViewModels;
         }
     }
 }

@@ -3,16 +3,22 @@ using FraudScanner.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace FraudScanner.Mocks
 {
     public class RuleMainMocks : IRuleMain
     {
-        ITransactionMain _transactionMain;
+        private readonly ITransactionMain _transactionMain;
+
+        private List<RuleType> RuleTypeMockList;
+        private List<Rule> RuleMockList; 
 
         public RuleMainMocks(ITransactionMain transactionMain)
         {
             _transactionMain = transactionMain;
+
+            GenerateRuleTypes();
         }
 
         public Task<List<RuleDisplayView>> GetRules(RuleDisplayViewSearch ruleDisplayViewSearch)
@@ -22,20 +28,84 @@ namespace FraudScanner.Mocks
 
         public Task<List<RuleType>> GetRuleTypes()
         {
-            var ruleTypeMockList = new List<RuleType>();
+           // var ruleTypeMockList = new List<RuleType>();
 
-            ruleTypeMockList.Add(new RuleType { Id = 1, RuleTypeDesc = "Total Trans Amount", MeasurementAmountDesc= "Trans Amount" });
-            ruleTypeMockList.Add(new RuleType { Id = 2, RuleTypeDesc = "Number of Transactions", MeasurementAmountDesc = "# Transactions" });
+           // ruleTypeMockList.Add(new RuleType { Id = 1, RuleTypeDesc = "Total Trans Amount", MeasurementAmountDesc= "Trans Amount" });
+           // ruleTypeMockList.Add(new RuleType { Id = 2, RuleTypeDesc = "Number of Transactions", MeasurementAmountDesc = "# Transactions" });
 
-            return Task.FromResult(ruleTypeMockList);
+            return Task.FromResult(RuleTypeMockList);
         }
 
+        public Task<int> AddRule(Rule newRule)
+        {
+            var maxId = RuleMockList.Max(a => a.Id);
+            newRule.Id = maxId + 1;
+
+            RuleMockList.Add(newRule);
+            return Task.FromResult(1);
+        }
+
+        public Task<int> UpdateRule(Rule modifyRule)
+        { return Task.FromResult (1);
+        }
+
+        private void GenerateRuleTypes()
+        {
+            RuleTypeMockList = new List<RuleType>();
+
+            RuleTypeMockList.Add(new RuleType { Id = 1, RuleTypeDesc = "Total Trans Amount", MeasurementAmountDesc = "Trans Amount" });
+            RuleTypeMockList.Add(new RuleType { Id = 2, RuleTypeDesc = "Number of Transactions", MeasurementAmountDesc = "# Transactions" });
+
+        }
+
+        private void GenerateRules()
+        {
+            RuleMockList = new List<Rule>();
+
+            RuleMockList.Add(
+                new Rule
+                {
+                    Id = 100,
+                    RuleTypeId = 1,
+                    RuleDesc = "Rule #1 - Tot Trans Amt",
+                    TimeSpanMinutes = 60,
+                    MeasurementAmount = 17.50,
+                    TransactionTypeId = 1,
+                    FraudScore = 3,
+                    ActiveDate = new DateTime(2017, 1, 1),
+                    InactiveDate = new DateTime(2019, 1, 1)
+                });
+
+            RuleMockList.Add(
+                new Rule
+                {
+                    Id = 103,
+                    RuleTypeId = 2,
+                    RuleDesc = "Rule #2 - Num Trans Made",
+                    TimeSpanMinutes = 40,
+                    MeasurementAmount = 6,
+                    FraudScore = 1,
+                    ActiveDate = new DateTime(2017, 5, 1),
+                });
+
+            RuleMockList.Add(
+               new Rule
+               {
+                   Id = 120,
+                   RuleTypeId = 2,
+                   RuleDesc = "Rule #3 - Num Trans Made ABC",
+                   TimeSpanMinutes = 90,
+                   MeasurementAmount = 10,
+                   FraudScore = 2,
+                   ActiveDate = new DateTime(2017, 5, 1),
+               });
+        }
 
         private List<RuleDisplayView> GenerateDisplayView(RuleDisplayViewSearch ruleDisplayViewSearch)
         {
             var ruleDisplayViewList = new List<RuleDisplayView>();
             var transactionTypeMockList = _transactionMain.GetTransactionTypes().Result;
-            var ruleTypeMockList = GetRuleTypes().Result;
+            //var ruleTypeMockList = GetRuleTypes().Result;
 
             var ruleMockList = GetRuleMockList();
 
@@ -49,7 +119,7 @@ namespace FraudScanner.Mocks
                     (rule.TransactionTypeId.HasValue 
                     && ruleDisplayViewSearch.TransactionTypeId.Value == rule.TransactionTypeId.Value) ))
                 {   
-                    var ruleDisplayView = GetDisplayViewFromRec(rule, ruleTypeMockList, transactionTypeMockList);
+                    var ruleDisplayView = GetDisplayViewFromRec(rule, RuleTypeMockList, transactionTypeMockList);
 
                     ruleDisplayViewList.Add(ruleDisplayView);
                 }
@@ -88,48 +158,8 @@ namespace FraudScanner.Mocks
         }
 
         private List<Rule> GetRuleMockList()
-        {
-            var ruleMockList = new List<Rule>(); 
-
-            ruleMockList.Add(
-                new Rule
-                {
-                    Id = 100,
-                    RuleTypeId = 1,
-                    RuleDesc = "Rule #1 - Tot Trans Amt",
-                    TimeSpanMinutes = 60,
-                    MeasurementAmount = 17.50,
-                    TransactionTypeId = 1,
-                    FraudScore = 3,
-                    ActiveDate = new DateTime(2017, 1, 1),
-                    InactiveDate = new DateTime(2019, 1, 1)
-                });
-
-            ruleMockList.Add(
-                new Rule
-                {
-                    Id = 103,
-                    RuleTypeId = 2,
-                    RuleDesc = "Rule #2 - Num Trans Made",
-                    TimeSpanMinutes = 40,
-                    MeasurementAmount = 6, 
-                    FraudScore = 1,
-                    ActiveDate = new DateTime(2017, 5, 1), 
-                });
-
-            ruleMockList.Add(
-               new Rule
-               {
-                   Id = 120,
-                   RuleTypeId = 2,
-                   RuleDesc = "Rule #3 - Num Trans Made ABC",
-                   TimeSpanMinutes = 90,
-                   MeasurementAmount = 10,
-                   FraudScore = 2,
-                   ActiveDate = new DateTime(2017, 5, 1),
-               });
-
-            return ruleMockList;
+        { 
+            return RuleMockList;
         }
     }
 }

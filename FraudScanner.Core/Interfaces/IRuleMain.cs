@@ -11,5 +11,9 @@ namespace FraudScanner.Core.Interfaces
         Task<List<RuleDisplayView>> GetRules(RuleDisplayViewSearch ruleDisplayViewSearch);
 
         Task<List<RuleType>> GetRuleTypes();
+
+        Task <int> AddRule(Rule newRule);
+
+        Task<int> UpdateRule(Rule modifyRule);
     }
 }

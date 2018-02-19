@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 using FraudScanner.Web.Service;
+using FraudScanner.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FraudScanner.Web.Controllers
@@ -11,8 +12,8 @@ namespace FraudScanner.Web.Controllers
     {
         private readonly RuleMainService _ruleMainService;
         private readonly TransactionMainService _transactionMainService;
-          
-        public RuleController(RuleMainService ruleMainService, 
+
+        public RuleController(RuleMainService ruleMainService,
             TransactionMainService transactionMainService)
         {
             _ruleMainService = ruleMainService;
@@ -24,6 +25,14 @@ namespace FraudScanner.Web.Controllers
             ViewBag.RuleTypes = _ruleMainService.GetRuleTypes();
             ViewBag.TransactionTypes = _transactionMainService.GetTransactionTypes();
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Add(RuleViewModel newRule)
+        {
+            ViewBag.RuleTypes = _ruleMainService.GetRuleTypes();
+            ViewBag.TransactionTypes = _transactionMainService.GetTransactionTypes();
+            return View(newRule);
         }
 
         public ActionResult GetRules(Nullable<int> RuleTypeId, Nullable<int> TransactionTypeId)

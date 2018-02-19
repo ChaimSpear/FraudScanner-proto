@@ -1,5 +1,6 @@
 ﻿using FraudScanner.Core.Interfaces;
 using FraudScanner.Core.Models;
+using FraudScanner.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,62 @@ namespace FraudScanner.Web.Service
             _ruleMain = ruleMain;
         }
 
-        public List<RuleDisplayView> GetRules(Nullable<int> ruleTypeId, Nullable<int> transactionTypeId)
+        public List<RuleDisplayViewModel> GetRules(Nullable<int> ruleTypeId, Nullable<int> transactionTypeId)
         {
             var ruleDisplayViewSearch = new RuleDisplayViewSearch { RuleTypeId= ruleTypeId,
                 TransactionTypeId = transactionTypeId };
-            return _ruleMain.GetRules(ruleDisplayViewSearch).Result;
+             
+            return ConvertRuleDisplayViewsToRuleDisplayViewModels(
+                _ruleMain.GetRules(ruleDisplayViewSearch).Result);
         }
 
-        public List<RuleType> GetRuleTypes()
+        public List<RuleTypeViewModel> GetRuleTypes()
         {
-            return _ruleMain.GetRuleTypes().Result;
+            return ConvertRuleTypesToRuleTypeViewModels(_ruleMain.GetRuleTypes().Result);
         }
+
+        private List<RuleTypeViewModel> ConvertRuleTypesToRuleTypeViewModels(List<RuleType> RuleTypes)
+        {
+            var RuleTypeViewModels = new List<RuleTypeViewModel>();
+            for (int i = 0; i < RuleTypes.Count; i++)
+            {
+                RuleTypeViewModels.Add(
+                    new RuleTypeViewModel
+                    {
+                        Id = RuleTypes[i].Id,
+                        MeasurementAmountDesc = RuleTypes[i].MeasurementAmountDesc,
+                        RuleTypeDesc = RuleTypes[i].RuleTypeDesc
+                    }
+                    );
+            }
+
+            return RuleTypeViewModels;
+        }
+
+        private List<RuleDisplayViewModel> ConvertRuleDisplayViewsToRuleDisplayViewModels(List<RuleDisplayView> RuleDisplayViews)
+        {
+            var RuleDisplayViewModels = new List<RuleDisplayViewModel>();
+            for (int i = 0; i < RuleDisplayViews.Count; i++)
+            {
+                RuleDisplayViewModels.Add(
+                    new RuleDisplayViewModel
+                    {
+                        Id = RuleDisplayViews[i].Id,
+                        RuleTypeId = RuleDisplayViews[i].RuleTypeId,
+                        RuleDesc = RuleDisplayViews[i].RuleDesc,
+                        TimeSpanMinutes = RuleDisplayViews[i].TimeSpanMinutes,
+                        MeasurementAmount = RuleDisplayViews[i].MeasurementAmount,
+                        FraudScore = RuleDisplayViews[i].FraudScore,
+                        TransactionTypeId = RuleDisplayViews[i].TransactionTypeId, 
+                        RuleTypeDesc = RuleDisplayViews[i].RuleTypeDesc,
+                        TransactionTypeDesc = RuleDisplayViews[i].TransactionTypeDesc,
+                        ActiveDate = RuleDisplayViews[i].ActiveDate,
+                        InactiveDate = RuleDisplayViews[i].InactiveDate 
+                    }
+                    );
+            }
+
+            return RuleDisplayViewModels;
+        } 
     }
 }
