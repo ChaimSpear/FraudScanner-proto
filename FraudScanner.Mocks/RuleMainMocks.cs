@@ -19,6 +19,8 @@ namespace FraudScanner.Mocks
             _transactionMain = transactionMain;
 
             GenerateRuleTypes();
+
+            GenerateRules();
         }
 
         public Task<List<RuleDisplayView>> GetRules(RuleDisplayViewSearch ruleDisplayViewSearch)
@@ -36,17 +38,19 @@ namespace FraudScanner.Mocks
             return Task.FromResult(RuleTypeMockList);
         }
 
-        public Task<int> AddRule(Rule newRule)
+        public Task<long> AddRule(Rule newRule)
         {
             var maxId = RuleMockList.Max(a => a.Id);
             newRule.Id = maxId + 1;
 
             RuleMockList.Add(newRule);
-            return Task.FromResult(1);
+            return Task.FromResult(newRule.Id);
         }
 
-        public Task<int> UpdateRule(Rule modifyRule)
-        { return Task.FromResult (1);
+        public Task<long> UpdateRule(Rule modifyRule)
+        {
+            long a = 4;
+            return Task.FromResult ( a);
         }
 
         private void GenerateRuleTypes()

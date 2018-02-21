@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FraudScanner.Web.Service;
 using FraudScanner.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FraudScanner.Web.Controllers
 {
@@ -28,11 +29,34 @@ namespace FraudScanner.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add(RuleViewModel newRule)
+        public IActionResult Add()
         {
-            ViewBag.RuleTypes = _ruleMainService.GetRuleTypes();
-            ViewBag.TransactionTypes = _transactionMainService.GetTransactionTypes();
+            var newRule = new RuleViewModel();
+            newRule.ActiveDate = new DateTime(2018, 1, 11);
+            newRule.RuleTypes = new SelectList(
+ 
+                _ruleMainService.GetRuleTypes(), "Id", "RuleTypeDesc");
+            newRule.TransactionTypes = new SelectList(
+                _transactionMainService.GetTransactionTypes(), "Id", "TransactionTypeDesc");
+
             return View(newRule);
+        }
+
+        [HttpPost]
+        public IActionResult Add(RuleViewModel NewRule)
+        {
+            if (ModelState.IsValid)
+                _ruleMainService.AddRule(NewRule);
+            else
+            {
+                ViewBag.RuleTypes = new SelectList(
+
+                    _ruleMainService.GetRuleTypes(), "Id", "RuleTypeDesc");
+                ViewBag.TransactionTypes = new SelectList(
+                    _transactionMainService.GetTransactionTypes(), "Id", "TransactionTypeDesc");
+
+            }
+            return View(NewRule);
         }
 
         public ActionResult GetRules(Nullable<int> RuleTypeId, Nullable<int> TransactionTypeId)

@@ -34,9 +34,10 @@ namespace FraudScanner.Web.Service
             return _transactionMain.GetTransactionActivity(viewSearch).Result;
         }
 
-        public List<TransactionType> GetTransactionTypes()
+        public List<TransactionTypeViewModel> GetTransactionTypes()
         {
-            return _transactionMain.GetTransactionTypes().Result;
+            return ConvertTransTypesToTransTypeViewModels(
+                _transactionMain.GetTransactionTypes().Result);
         }
 
         private List<TransactionTypeViewModel> ConvertTransTypesToTransTypeViewModels(List<TransactionType> TransactionTypes)

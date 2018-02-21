@@ -100,21 +100,20 @@ function search_trans() {
 
         set_dates = function () {
 
-        $("#FromDate, #ToDate").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: 'mm/dd/yy',
-        gotoCurrent: true
-            }).attr('maxlength', '10');; 
-            $("#FromDate").val("@ViewBag.DefaultFromDateStr");
-            $("#ToDate").val("@ViewBag.DefaultToDateStr"); 
-
+            $("#FromDate, #ToDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+                }).attr('maxlength', '10');; 
+                $("#FromDate").val("@ViewBag.DefaultFromDateStr");
+                $("#ToDate").val("@ViewBag.DefaultToDateStr"); 
         }
 
         $(document).ready(function () {
             set_dates();
             $("#TransactionTypeId").prepend("<option value=''>-- ALL --</option>").val('');
-});
+        });
 
     </script>
 }

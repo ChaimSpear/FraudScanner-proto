@@ -3,70 +3,144 @@
 @{
     ViewData["Title"] = "Add";
 }
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.theme.css" />
+
+@section scripts {
+    <script src="~/lib/jquery-ui/jquery-ui.js" type="text/javascript"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+        set_dates = function () {
+
+            $("#ActiveDate, #InactiveDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+                }).attr('maxlength', '10');;
+                //$("#ActiveDate").val("@ViewBag.DefaultFromDateStr");
+               // $("#InactiveDate").val("@ViewBag.DefaultToDateStr");
+        }
+        set_defaults = function (RuleId) {
+            if (RuleId <= 0) {
+                $("#TimeSpanMinutes").val("");
+                $("#MeasurementAmount").val("");
+                $("#FraudScore").val("");
+
+            }
+        }
+
+        $(document).ready(function () {
+            set_dates();
+            set_defaults(@Model.Id);
+            $("#RuleTypeId").prepend("<option value=''>-- SELECT --</option>").val('');
+            $("#TransactionTypeId").prepend("<option value=''>-- ANY --</option>").val('');
+            //$("#TransactionTypeId").prepend("<option value=''>-- ALL --</option>").val('');
+        });
+    </script>
+}
 
 <h2>Add</h2>
 
-<h4>RuleViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Add">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RuleTypeId" class="control-label"></label>
-                <input asp-for="RuleTypeId" class="form-control" />
-                 
+<form asp-action="Add" class="form-inline">
 
-                <span asp-validation-for="RuleTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RuleDesc" class="control-label"></label>
-                <input asp-for="RuleDesc" class="form-control" />
-                <span asp-validation-for="RuleDesc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeSpanMinutes" class="control-label"></label>
-                <input asp-for="TimeSpanMinutes" class="form-control" />
-                <span asp-validation-for="TimeSpanMinutes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MeasurementAmount" class="control-label"></label>
-                <input asp-for="MeasurementAmount" class="form-control" />
-                <span asp-validation-for="MeasurementAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FraudScore" class="control-label"></label>
-                <input asp-for="FraudScore" class="form-control" />
-                <span asp-validation-for="FraudScore" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TransactionTypeId" class="control-label"></label>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <select asp-for="TransactionTypeId" asp-items="Model.TransactionTypes" class="form-control"></select>
-                <input asp-for="TransactionTypeId" class="form-control" />
-                <span asp-validation-for="TransactionTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ActiveDate" class="control-label"></label>
-                <input asp-for="ActiveDate" class="form-control" />
-                <span asp-validation-for="ActiveDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InactiveDate" class="control-label"></label>
-                <input asp-for="InactiveDate" class="form-control" />
-                <span asp-validation-for="InactiveDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+
+    <div class="form-group form-group-sm">
+
+        <label asp-for="RuleTypeId" class="control-label"></label>
+
+        <select asp-for="RuleTypeId" asp-items="Model.RuleTypes" class="form-control"></select>
+
+        <span asp-validation-for="RuleTypeId" class="text-danger"></span>
+
     </div>
-</div>
+    <div class="form-group">
+
+        <label asp-for="RuleDesc" class="control-label"></label>
+
+
+        <input asp-for="RuleDesc" class="form-control" />
+
+
+        <span asp-validation-for="RuleDesc" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+
+        <label asp-for="TimeSpanMinutes" class="control-label"></label>
+
+
+        <input asp-for="TimeSpanMinutes" class="form-control" />
+
+
+        <span asp-validation-for="TimeSpanMinutes" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+
+        <label asp-for="MeasurementAmount" class="control-label"></label>
+
+
+        <input asp-for="MeasurementAmount" class="form-control" />
+
+
+        <span asp-validation-for="MeasurementAmount" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+
+        <label asp-for="FraudScore" class="control-label"></label>
+
+
+        <input asp-for="FraudScore" class="form-control" />
+
+
+        <span asp-validation-for="FraudScore" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+
+        <label asp-for="TransactionTypeId" class="control-label"></label>
+
+
+
+
+        <select asp-for="TransactionTypeId" asp-items="Model.TransactionTypes" class="form-control"></select>
+
+
+
+        <span asp-validation-for="TransactionTypeId" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+
+        <label asp-for="ActiveDate" class="control-label"></label>
+
+
+        <input asp-for="ActiveDate" class="form-control" />
+
+
+        <span asp-validation-for="ActiveDate" class="text-danger"></span>
+
+    </div>
+    <div class="form-group ">
+
+        <label asp-for="InactiveDate" class="control-label"></label>
+
+
+        <input asp-for="InactiveDate" class="form-control" />
+
+
+        <span asp-validation-for="InactiveDate" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>

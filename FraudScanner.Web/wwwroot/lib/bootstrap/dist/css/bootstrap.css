@@ -2721,10 +2721,10 @@ select[multiple].input-sm {
 }
 .form-group-sm .form-control {
   height: 30px;
-  padding: 5px 10px;
-  font-size: 12px;
+  padding: 0px 0px;
+  font-size: 13px;
   line-height: 1.5;
-  border-radius: 3px;
+  border-radius: 1px;
 }
 .form-group-sm select.form-control {
   height: 30px;
@@ -2961,6 +2961,12 @@ select[multiple].input-lg {
   .form-inline .has-feedback .form-control-feedback {
     top: 0;
   }
+    .form-inline div {
+        margin-top: 12px;
+        margin-bottom: 12px;
+        margin-left: 12px;
+        margin-right: 12px; 
+    }
 }
 .form-horizontal .radio,
 .form-horizontal .checkbox,

@@ -31,6 +31,23 @@ namespace FraudScanner.Web.Service
             return ConvertRuleTypesToRuleTypeViewModels(_ruleMain.GetRuleTypes().Result);
         }
 
+        public long AddRule(RuleViewModel NewRuleVm)
+        {
+            var newRule = new Rule
+            { 
+                RuleTypeId = NewRuleVm.RuleTypeId,
+                RuleDesc = NewRuleVm.RuleDesc,
+                TimeSpanMinutes = NewRuleVm.TimeSpanMinutes,
+                MeasurementAmount = NewRuleVm.MeasurementAmount,
+                FraudScore = NewRuleVm.FraudScore,
+                TransactionTypeId = NewRuleVm.TransactionTypeId,
+                ActiveDate = NewRuleVm.ActiveDate,
+                InactiveDate = NewRuleVm.InactiveDate
+            };
+
+            return _ruleMain.AddRule(newRule).Result;
+        }
+
         private List<RuleTypeViewModel> ConvertRuleTypesToRuleTypeViewModels(List<RuleType> RuleTypes)
         {
             var RuleTypeViewModels = new List<RuleTypeViewModel>();
