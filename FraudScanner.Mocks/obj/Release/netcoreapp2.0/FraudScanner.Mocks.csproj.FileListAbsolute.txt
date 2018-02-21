@@ -1,0 +1,11 @@
+C:\Development\FraudScanner\FraudScanner.Mocks\bin\Release\netcoreapp2.0\FraudScanner.Mocks.deps.json
+C:\Development\FraudScanner\FraudScanner.Mocks\bin\Release\netcoreapp2.0\FraudScanner.Mocks.dll
+C:\Development\FraudScanner\FraudScanner.Mocks\bin\Release\netcoreapp2.0\FraudScanner.Mocks.pdb
+C:\Development\FraudScanner\FraudScanner.Mocks\bin\Release\netcoreapp2.0\FraudScanner.Core.dll
+C:\Development\FraudScanner\FraudScanner.Mocks\bin\Release\netcoreapp2.0\FraudScanner.Core.pdb
+C:\Development\FraudScanner\FraudScanner.Mocks\obj\Release\netcoreapp2.0\FraudScanner.Mocks.csprojResolveAssemblyReference.cache
+C:\Development\FraudScanner\FraudScanner.Mocks\obj\Release\netcoreapp2.0\FraudScanner.Mocks.csproj.CoreCompileInputs.cache
+C:\Development\FraudScanner\FraudScanner.Mocks\obj\Release\netcoreapp2.0\FraudScanner.Mocks.AssemblyInfoInputs.cache
+C:\Development\FraudScanner\FraudScanner.Mocks\obj\Release\netcoreapp2.0\FraudScanner.Mocks.AssemblyInfo.cs
+C:\Development\FraudScanner\FraudScanner.Mocks\obj\Release\netcoreapp2.0\FraudScanner.Mocks.dll
+C:\Development\FraudScanner\FraudScanner.Mocks\obj\Release\netcoreapp2.0\FraudScanner.Mocks.pdb

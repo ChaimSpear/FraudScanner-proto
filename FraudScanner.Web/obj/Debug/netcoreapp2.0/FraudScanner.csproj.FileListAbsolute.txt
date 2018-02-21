@@ -1,0 +1,11 @@
+C:\Development\FraudScanner\FraudScanner\bin\Debug\netcoreapp2.0\FraudScanner.deps.json
+C:\Development\FraudScanner\FraudScanner\bin\Debug\netcoreapp2.0\FraudScanner.runtimeconfig.json
+C:\Development\FraudScanner\FraudScanner\bin\Debug\netcoreapp2.0\FraudScanner.runtimeconfig.dev.json
+C:\Development\FraudScanner\FraudScanner\bin\Debug\netcoreapp2.0\FraudScanner.dll
+C:\Development\FraudScanner\FraudScanner\bin\Debug\netcoreapp2.0\FraudScanner.pdb
+C:\Development\FraudScanner\FraudScanner\obj\Debug\netcoreapp2.0\FraudScanner.csprojResolveAssemblyReference.cache
+C:\Development\FraudScanner\FraudScanner\obj\Debug\netcoreapp2.0\FraudScanner.csproj.CoreCompileInputs.cache
+C:\Development\FraudScanner\FraudScanner\obj\Debug\netcoreapp2.0\FraudScanner.AssemblyInfoInputs.cache
+C:\Development\FraudScanner\FraudScanner\obj\Debug\netcoreapp2.0\FraudScanner.AssemblyInfo.cs
+C:\Development\FraudScanner\FraudScanner\obj\Debug\netcoreapp2.0\FraudScanner.dll
+C:\Development\FraudScanner\FraudScanner\obj\Debug\netcoreapp2.0\FraudScanner.pdb

@@ -1,0 +1,19 @@
+C:\Development\FraudScanner\FraudScanner.Web
+--output-path=obj\Any CPU\Release\netcoreapp2.0\
+--application-name=FraudScanner.Web
+--content-root=C:\Development\FraudScanner\FraudScanner.Web
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Home\About.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Home\Contact.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Home\Index - Copy.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Home\Index.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Rule\Index.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Shared\EditorTemplates\Boolean.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Shared\EditorTemplates\DateTime.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Shared\Error.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Shared\_Layout.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Shared\_ToFromDate.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Shared\_ValidationScriptsPartial.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\Test\Index.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\TransactionActivity\Index.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\_ViewImports.cshtml
+--file=C:\Development\FraudScanner\FraudScanner.Web\Views\_ViewStart.cshtml
