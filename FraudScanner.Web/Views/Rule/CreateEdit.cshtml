@@ -1,7 +1,7 @@
 ﻿@model FraudScanner.Web.ViewModels.RuleViewModel
 
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Create";
 }
 <link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.theme.css" />
@@ -41,9 +41,9 @@
     </script>
 }
 
-<h2>Add</h2>
+<h2>Create</h2>
 
-<form asp-action="Add" class="form-inline">
+<form asp-action="@(Model.Id <= 0?"Create" : "Edit")" class="form-inline">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 

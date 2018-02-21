@@ -15,5 +15,7 @@ namespace FraudScanner.Core.Interfaces
         Task <long> AddRule(Rule newRule);
 
         Task<long> UpdateRule(Rule modifyRule);
+
+        Task<Rule> GetRule(long id); 
     }
 }

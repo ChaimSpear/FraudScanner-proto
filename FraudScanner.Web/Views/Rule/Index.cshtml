@@ -17,10 +17,22 @@
             show_table();
         else
             search_trans();
-       
+
         //$("#spnSearchResults").fadeIn(1000);
     }
 
+        function RuleLnkFmatter (cellvalue, options, rowObject)
+    {
+        var urlEdit = "@Url.Action("edit")/" + rowObject.id ;
+        var urlEdit = "edit/" + rowObject.id ;
+        var lnkEdit = "<a href='" + urlEdit + "' id='edit_rule');'>Edit</a>";
+        //var lnkCopy = "<a href='#' id='copy_rule' onclick='CopyRule(" + rowObject.id +  ",\"" + rowObject.rule_desc + "\");'>Copy Rule</a>";
+        var Lnks;
+
+        Lnks = lnkEdit;//+ " | " + lnkCopy;
+
+        return Lnks;
+    }
     show_table = function () {
         ShowTableFlag = true;
         transGrid = $("#rules_grid").jqGrid({
@@ -42,7 +54,8 @@
     loadonce: true,
     recordtext: "View {0} - {1} of {2}",
     cellLayout: 12,
-    colNames: [
+        colNames: [
+            'Action',
         'Id',
         'Rule Type',
         'Rule',
@@ -54,7 +67,9 @@
         'Fraud Score'
     ],
 
-    colModel: [
+        colModel: [
+            { name: 'action', width: '116px', align: 'center', sortable: false, formatter: RuleLnkFmatter },
+
         { name: 'id', index: 'id', width: 55, sorttype: 'number', align: 'right' },
         { name: 'ruleTypeDesc', index: 'ruleTypeDesc', width: 165 },
         { name: 'ruleDesc', index: 'ruleDesc', width: 165 },
@@ -113,7 +128,7 @@ rules_grid.trigger("reloadGrid");
 Rule Type:
 @Html.DropDownList("RuleTypeId",
                   new SelectList(ViewBag.RuleTypes, "Id", "RuleTypeDesc"), new { style = "width: 200px;" })
- 
+
 <span>&nbsp; &nbsp; </span>
 Transaction Type:
 @Html.DropDownList("TransactionTypeId",

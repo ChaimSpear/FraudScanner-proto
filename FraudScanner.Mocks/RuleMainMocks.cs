@@ -48,11 +48,19 @@ namespace FraudScanner.Mocks
         }
 
         public Task<long> UpdateRule(Rule modifyRule)
-        {
-            long a = 4;
-            return Task.FromResult ( a);
+        { 
+            return Task.FromResult (modifyRule.Id);
         }
 
+        Task<Rule> GetRule(long id)
+        {
+            return Task.FromResult(
+                RuleMockList.Where(r => r.Id == id).First());
+        }
+
+        /// <summary>
+        /// PRIVATE
+        /// </summary>
         private void GenerateRuleTypes()
         {
             RuleTypeMockList = new List<RuleType>();

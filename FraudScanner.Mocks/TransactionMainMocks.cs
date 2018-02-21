@@ -128,6 +128,28 @@ namespace FraudScanner.Mocks
                     TransAmount = 550,
                     TransDateTime = new DateTime(2018, 2, 02, 15, 55, 44)
                 });
+
+            transactionActivityMockList.Add(
+               new TransactionActivity
+               {
+                   Id = 900,
+                   AccountId = 830,
+                   ClassId = 700,
+                   TransactionTypeId = 1,
+                   TransAmount = 150,
+                   TransDateTime = new DateTime(2018, 2, 20, 16, 39, 55)
+               });
+
+            transactionActivityMockList.Add(
+               new TransactionActivity
+               {
+                   Id = 902,
+                   AccountId = 830,
+                   ClassId = 700,
+                   TransactionTypeId = 2,
+                   TransAmount = 50,
+                   TransDateTime = new DateTime(2018, 2, 20, 14, 11, 25)
+               });
             return  transactionActivityMockList ;
         }
 

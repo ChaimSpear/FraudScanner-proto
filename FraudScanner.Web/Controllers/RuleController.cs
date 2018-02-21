@@ -30,7 +30,7 @@ namespace FraudScanner.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Create()
         {
             var newRule = new RuleViewModel();
             newRule.ActiveDate = new DateTime(2018, 1, 11);
@@ -40,11 +40,12 @@ namespace FraudScanner.Web.Controllers
             newRule.TransactionTypes = new SelectList(
                 _transactionMainService.GetTransactionTypes(), "Id", "TransactionTypeDesc");
 
-            return View(newRule);
+            return View("CreateEdit", newRule);
         }
 
         [HttpPost]
-        public IActionResult Add(RuleViewModel NewRule)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(RuleViewModel NewRule)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +63,42 @@ namespace FraudScanner.Web.Controllers
                     _transactionMainService.GetTransactionTypes(), "Id", "TransactionTypeDesc");
 
             }
-            return View();
+            return View("CreateEdit", NewRule);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(long Id)
+        {
+            var editRule = _ruleMainService.GetRule(Id);
+            editRule.RuleTypes = new SelectList( 
+                _ruleMainService.GetRuleTypes(), "Id", "RuleTypeDesc");
+            editRule.TransactionTypes = new SelectList(
+                _transactionMainService.GetTransactionTypes(), "Id", "TransactionTypeDesc");
+
+            return View("CreateEdit", editRule);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(long Id, RuleViewModel EditRule)
+        {
+            if (ModelState.IsValid)
+            {
+                _ruleMainService.UpdateRule(EditRule   );
+
+                TempData["Message"] = "Added New Rule";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.RuleTypes = new SelectList(
+
+                    _ruleMainService.GetRuleTypes(), "Id", "RuleTypeDesc");
+                ViewBag.TransactionTypes = new SelectList(
+                    _transactionMainService.GetTransactionTypes(), "Id", "TransactionTypeDesc");
+
+            }
+            return View("CreateEdit", EditRule);
         }
 
         public ActionResult GetRules(Nullable<int> RuleTypeId, Nullable<int> TransactionTypeId)

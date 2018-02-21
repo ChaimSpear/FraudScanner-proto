@@ -34,7 +34,7 @@ namespace FraudScanner.Web.Service
         public long AddRule(RuleViewModel NewRuleVm)
         {
             var newRule = new Rule
-            { 
+            {
                 RuleTypeId = NewRuleVm.RuleTypeId,
                 RuleDesc = NewRuleVm.RuleDesc,
                 TimeSpanMinutes = NewRuleVm.TimeSpanMinutes,
@@ -46,6 +46,45 @@ namespace FraudScanner.Web.Service
             };
 
             return _ruleMain.AddRule(newRule).Result;
+        }
+         
+        public long UpdateRule(RuleViewModel UpdateRuleVm)
+        {
+            var rule = _ruleMain.GetRule(UpdateRuleVm.Id).Result;
+
+            rule.RuleTypeId = UpdateRuleVm.RuleTypeId;
+            rule.RuleDesc = UpdateRuleVm.RuleDesc;
+                rule.TimeSpanMinutes = UpdateRuleVm.TimeSpanMinutes;
+                rule.MeasurementAmount = UpdateRuleVm.MeasurementAmount;
+            rule.FraudScore = UpdateRuleVm.FraudScore;
+                rule.TransactionTypeId = UpdateRuleVm.TransactionTypeId;
+                rule.ActiveDate = UpdateRuleVm.ActiveDate;
+            rule.InactiveDate = UpdateRuleVm.InactiveDate;
+
+            return _ruleMain.UpdateRule(rule).Result;
+        }
+
+        public RuleViewModel GetRule(long id)
+        {
+            var rule = _ruleMain.GetRule(id).Result;
+
+            return ConvertRuleToRuleViewModel(rule);
+        }
+
+        public RuleViewModel ConvertRuleToRuleViewModel(Rule ruleToConvert)
+        {
+            return new RuleViewModel
+            {
+                Id = ruleToConvert.Id,
+                RuleTypeId = ruleToConvert.RuleTypeId,
+                RuleDesc = ruleToConvert.RuleDesc,
+                TimeSpanMinutes = ruleToConvert.TimeSpanMinutes,
+                MeasurementAmount = ruleToConvert.MeasurementAmount,
+                FraudScore = ruleToConvert.FraudScore,
+                TransactionTypeId = ruleToConvert.TransactionTypeId,
+                ActiveDate = ruleToConvert.ActiveDate,
+                InactiveDate = ruleToConvert.InactiveDate
+            };
         }
 
         private List<RuleTypeViewModel> ConvertRuleTypesToRuleTypeViewModels(List<RuleType> RuleTypes)
