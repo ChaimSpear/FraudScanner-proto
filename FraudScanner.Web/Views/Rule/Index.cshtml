@@ -22,10 +22,14 @@
     }
 
         function RuleLnkFmatter (cellvalue, options, rowObject)
-    {
+        {
+             //<a asp-action="edit" asp-route-id="10">
         var urlEdit = "@Url.Action("edit")/" + rowObject.id ;
-        var urlEdit = "edit/" + rowObject.id ;
+       // var urlEdit = "/edit/" + rowObject.id;
+            //var urlEdit=
         var lnkEdit = "<a href='" + urlEdit + "' id='edit_rule');'>Edit</a>";
+
+            //var lnkEdit = "<a asp-action='Edit' asp-route-id='" + rowObject.id + "' id='edit_rule'>Edit</a>"
         //var lnkCopy = "<a href='#' id='copy_rule' onclick='CopyRule(" + rowObject.id +  ",\"" + rowObject.rule_desc + "\");'>Copy Rule</a>";
         var Lnks;
 
@@ -137,6 +141,8 @@ Transaction Type:
 <span>&nbsp; &nbsp; &nbsp; </span>
 <span>&nbsp; &nbsp; &nbsp; </span>
 <button onclick="search_action();">Show Rules</button>
+|
+<a asp-action="Create">New Rule</a>
 
 <span style="font-size:14px; font-family:Verdana;display:none;" id="spnSearchResults">
     &nbsp; &nbsp; &nbsp; Search Results

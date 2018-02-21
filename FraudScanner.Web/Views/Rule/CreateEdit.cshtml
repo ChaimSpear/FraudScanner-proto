@@ -1,7 +1,7 @@
 ﻿@model FraudScanner.Web.ViewModels.RuleViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = (Model.Id <= 0 ? "Add" : "Update") + " Rule";
 }
 <link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="~/css/site-theme/jquery-ui.theme.css" />
@@ -27,21 +27,25 @@
                 $("#TimeSpanMinutes").val("");
                 $("#MeasurementAmount").val("");
                 $("#FraudScore").val("");
-
+                $("#RuleTypeId").val("");
+                $("#TransactionTypeId").val("");
             }
         }
 
         $(document).ready(function () {
             //set_dates();
+            $("#RuleTypeId").prepend("<option value=''>-- SELECT --</option>");
+            $("#TransactionTypeId").prepend("<option value=''>-- ANY --</option>");
             set_defaults(@Model.Id);
-            $("#RuleTypeId").prepend("<option value=''>-- SELECT --</option>").val('');
-            $("#TransactionTypeId").prepend("<option value=''>-- ANY --</option>").val('');
             //$("#TransactionTypeId").prepend("<option value=''>-- ALL --</option>").val('');
         });
     </script>
 }
 
-<h2>Create</h2>
+<span style="font-size:4px"><br /></span>
+<span style="font-size:18px;font-family:Verdana">
+    @ViewData["Title"]
+</span>
 
 <form asp-action="@(Model.Id <= 0?"Create" : "Edit")" class="form-inline">
 
@@ -137,11 +141,12 @@
         <span asp-validation-for="InactiveDate" class="text-danger"></span>
 
     </div>
+    <br /><br />
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-default" />
+        <input type="submit" value="@(ViewData["Title"])" class="btn btn-default" />
     </div>
 </form>
-
+<br /><br />
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

@@ -52,7 +52,7 @@ namespace FraudScanner.Mocks
             return Task.FromResult (modifyRule.Id);
         }
 
-        Task<Rule> GetRule(long id)
+        public Task<Rule> GetRule(long id)
         {
             return Task.FromResult(
                 RuleMockList.Where(r => r.Id == id).First());
@@ -67,7 +67,6 @@ namespace FraudScanner.Mocks
 
             RuleTypeMockList.Add(new RuleType { Id = 1, RuleTypeDesc = "Total Trans Amount", MeasurementAmountDesc = "Trans Amount" });
             RuleTypeMockList.Add(new RuleType { Id = 2, RuleTypeDesc = "Number of Transactions", MeasurementAmountDesc = "# Transactions" });
-
         }
 
         private void GenerateRules()
