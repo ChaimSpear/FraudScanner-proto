@@ -32,7 +32,7 @@
         }
 
         $(document).ready(function () {
-            set_dates();
+            //set_dates();
             set_defaults(@Model.Id);
             $("#RuleTypeId").prepend("<option value=''>-- SELECT --</option>").val('');
             $("#TransactionTypeId").prepend("<option value=''>-- ANY --</option>").val('');
@@ -57,7 +57,7 @@
         <span asp-validation-for="RuleTypeId" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
+    <div class="form-group form-group-sm">
 
         <label asp-for="RuleDesc" class="control-label"></label>
 
@@ -68,7 +68,7 @@
         <span asp-validation-for="RuleDesc" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
+    <div class="form-group form-group-sm">
 
         <label asp-for="TimeSpanMinutes" class="control-label"></label>
 
@@ -79,7 +79,7 @@
         <span asp-validation-for="TimeSpanMinutes" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
+    <div class="form-group form-group-sm">
 
         <label asp-for="MeasurementAmount" class="control-label"></label>
 
@@ -90,7 +90,7 @@
         <span asp-validation-for="MeasurementAmount" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
+    <div class="form-group form-group-sm">
 
         <label asp-for="FraudScore" class="control-label"></label>
 
@@ -101,7 +101,7 @@
         <span asp-validation-for="FraudScore" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
+    <div class="form-group form-group-sm">
 
         <label asp-for="TransactionTypeId" class="control-label"></label>
 
@@ -115,7 +115,7 @@
         <span asp-validation-for="TransactionTypeId" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
+    <div class="form-group form-group-sm">
 
         <label asp-for="ActiveDate" class="control-label"></label>
 
@@ -126,7 +126,7 @@
         <span asp-validation-for="ActiveDate" class="text-danger"></span>
 
     </div>
-    <div class="form-group ">
+    <div class="form-group  form-group-sm">
 
         <label asp-for="InactiveDate" class="control-label"></label>
 

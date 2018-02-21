@@ -1,6 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @{
+
+//ViewData["DisplayMessage"] = (TempData.Peek("message") != null ? TempData("message") : "") ;
+    }
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Fraud Scanner</title>
@@ -39,7 +43,14 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content"> 
+        @{ 
+            if (@TempData.Peek("message") != null)
+            {
+        <span style="font-size: 18px;color:Green" id="MESSAGE_TOP">
+            @TempData.Peek("message")
+        </span>
+                } }
         @RenderBody()
         <hr />
         <footer>
@@ -47,10 +58,18 @@
         </footer>
     </div>
 
+     
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                $("#MESSAGE_TOP").delay(5000).slideUp(5000);
+            });
+
+        </script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

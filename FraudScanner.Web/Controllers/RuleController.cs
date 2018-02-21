@@ -15,7 +15,7 @@ namespace FraudScanner.Web.Controllers
         private readonly TransactionMainService _transactionMainService;
 
         public RuleController(RuleMainService ruleMainService,
-            TransactionMainService transactionMainService)
+            TransactionMainService transactionMainService)  
         {
             _ruleMainService = ruleMainService;
             _transactionMainService = transactionMainService;
@@ -23,6 +23,7 @@ namespace FraudScanner.Web.Controllers
 
         public IActionResult Index()
         {
+            //TempData["Message"] = "test";
             ViewBag.RuleTypes = _ruleMainService.GetRuleTypes();
             ViewBag.TransactionTypes = _transactionMainService.GetTransactionTypes();
             return View();
@@ -46,7 +47,12 @@ namespace FraudScanner.Web.Controllers
         public IActionResult Add(RuleViewModel NewRule)
         {
             if (ModelState.IsValid)
+            {
                 _ruleMainService.AddRule(NewRule);
+
+                TempData["Message"] = "Added New Rule";
+                return RedirectToAction("Index");
+            }
             else
             {
                 ViewBag.RuleTypes = new SelectList(
@@ -56,7 +62,7 @@ namespace FraudScanner.Web.Controllers
                     _transactionMainService.GetTransactionTypes(), "Id", "TransactionTypeDesc");
 
             }
-            return View(NewRule);
+            return View();
         }
 
         public ActionResult GetRules(Nullable<int> RuleTypeId, Nullable<int> TransactionTypeId)
